@@ -1,0 +1,147 @@
+/* --- Hero Section --- */
+.hero {
+    height: calc(100vh - 80px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    /* Optimized Earthy Mineral Gradient */
+    background: #b8bea0;
+    padding: 0 20px;
+}
+
+/* Optional Overlay for Texture Depth */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/canvas-orange.png");
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* --- Hero Content --- */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem;
+    border-radius: 24px;
+    /* Soft Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.hero-content h1 {
+    /* Using a Serif font like 'Playfair Display' is highly recommended here */
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    /* Fluid typography */
+    font-weight: 600;
+    color: #2D3436;
+    /* Deep Onyx/Charcoal for high-end contrast */
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    color: #4A4A4A;
+    /* Softened charcoal */
+    max-width: 550px;
+    margin: 0 auto;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    opacity: 0;
+    animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+}
+
+/* --- CTA Button (Added for a complete Hero) --- */
+.hero-cta {
+    margin-top: 2.5rem;
+    display: inline-block;
+    padding: 16px 36px;
+    background-color: #2D3436;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.4s ease;
+    opacity: 0;
+    animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+    margin: 10px 10px;
+}
+
+.hero-cta:hover {
+    background-color: #535C68;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Entrance Animation --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 2rem 1.5rem;
+        margin: 0 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.75rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+}
+
+.wlcm-to {
+    font-size: 1.45rem;
+    font-weight: 150;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #686565
+}
+
+.hero-h2 {
+    font-size: 3rem;
+    font-weight: 350;
+    color: #373737;
+    font-family: "Allison", cursive;
+    margin-top: 0;
+}
+
+.toc {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3rem;
+    margin-bottom: 0;
+}
+.hero-lg{
+    width: 150px;
+    height: auto;
+}

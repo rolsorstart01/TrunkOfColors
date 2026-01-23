@@ -1,0 +1,17 @@
+{
+    "cleanUrls": true,
+    "rewrites": [
+        {
+            "source": "/auction",
+            "destination": "/auction.html"
+        },
+        {
+            "source": "/admin",
+            "destination": "/admin.html"
+        },
+        {
+            "source": "/gallery",
+            "destination": "/gallery.html"
+        }
+    ]
+}

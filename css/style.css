@@ -1,0 +1,74 @@
+:root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --cyan: #2CD5C4;
+    --green: #006341;
+    --yellow: #FFC72C;
+    --pink: #FFA3B5;
+    --gray: #808080;
+    --dark-gray: #333333;
+    --light-gray: #F5F5F5;
+    --beige: #E2E2B5;
+    --base: #0F172A;
+    --sage-green: #b8bea0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--sage-green);
+    color: var(--black);
+    overflow-x: hidden;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+    align-items: center;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+
+}
+
+.courier-prime-regular {
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.courier-prime-bold {
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.courier-prime-regular-italic {
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.courier-prime-bold-italic {
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.allison-regular {
+    font-family: "Allison", cursive;
+    font-weight: 400;
+    font-style: normal;
+}

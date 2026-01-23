@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trunk Of Colors | Buy Art</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/auction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo">
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="auction.html" class="active">Buy Art</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="auction-container">
+        <section class="auction-header">
+            <span class="wlcm-to">Curated Collection</span>
+            <h1 class="hero-h2">The Trunk of Colors</h1>
+            <p class="courier-prime-regular">Place your bid or purchase instantly via secure payment.</p>
+        </section>
+
+        <div id="art-grid" class="art-grid">
+            <p class="courier-prime-bold-italic">Loading the gallery...</p>
+        </div>
+    </main>
+
+    <script type="module" src="js/auction.js"></script>
+</body>
+
+</html>

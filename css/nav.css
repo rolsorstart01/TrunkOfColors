@@ -1,0 +1,111 @@
+/* --- Navigation Bar Container --- */
+nav {
+    background-color: var(--base);
+    height: 80px;
+    /* Slightly taller to accommodate logo */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Logo on left, Links on right */
+    padding: 0 5%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+/* --- Logo Styling --- */
+.logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.logo img {
+    height: 55px;
+    /* Adjust height based on your logo design */
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+    /* Slight pop effect when hovering logo */
+}
+
+/* --- Menu Links --- */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+nav ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Hover & Active States */
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--yellow);
+}
+
+/* Underline Animation */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--yellow);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* --- Content Adjustment --- */
+body {
+    padding-top: 80px;
+    /* Matches nav height */
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1.5rem;
+        height: 70px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    nav ul {
+        gap: 1.2rem;
+    }
+
+    nav ul li a {
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+
+    body {
+        padding-top: 70px;
+    }
+}

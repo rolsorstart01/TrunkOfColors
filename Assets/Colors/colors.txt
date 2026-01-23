@@ -1,0 +1,4 @@
+#2CD5C4 - Cyan
+#006341 - Green
+#FFC72C - Yellow
+#FFA3B5 - Pink

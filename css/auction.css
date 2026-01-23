@@ -1,0 +1,322 @@
+.auction-container {
+    padding: 100px 5% 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.auction-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.art-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.art-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.art-card:hover {
+    transform: translateY(-10px);
+}
+
+.art-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.art-info {
+    padding: 20px;
+}
+
+.price-tag {
+    color: var(--green);
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.bid-section {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.bid-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.bid-controls input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.bid-controls button {
+    background: var(--base);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buy-btn {
+    width: 100%;
+    background: var(--yellow);
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Animation for when the bid updates */
+@keyframes pricePop {
+    0% {
+        transform: scale(1);
+        color: var(--cyan);
+    }
+
+    50% {
+        transform: scale(1.2);
+        color: var(--green);
+    }
+
+    100% {
+        transform: scale(1);
+        color: var(--black);
+    }
+}
+
+.price-updated {
+    animation: pricePop 0.5s ease-out;
+}
+
+/* Style for the input fields to match your theme */
+.bid-input {
+    padding: 10px;
+    border: 1px solid var(--sage-green);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.bid-input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    background: white;
+}
+
+.img-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+.timer-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 0.85rem;
+    font-family: 'Courier Prime', monospace;
+}
+
+.art-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.buy-now-label {
+    margin: 10px 0;
+    color: var(--green);
+}
+
+.bid-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.bid-input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Container for all auction cards */
+.auction-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Default for mobile: 1 column */
+    gap: 24px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tablet & Desktop: Switch to 3 columns */
+@media (min-width: 768px) {
+    .auction-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.auction-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.auction-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image styling - makes all images the same size */
+.auction-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Square images; use 4 / 3 for wider */
+    object-fit: cover;
+    display: block;
+}
+
+.card-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Bidding Section Layout */
+.bid-controls {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bid-input {
+    padding: 10px;
+    border: 2px solid #eee;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.bid-input:focus {
+    border-color: #ff4757;
+    /* A vibrant accent color */
+}
+
+/* The Place Bid Button */
+.place-bid-btn {
+    background-color: #2f3542;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.place-bid-btn:hover {
+    background-color: #ff4757;
+}
+
+.place-bid-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive Grid */
+#art-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* 1 column mobile */
+    gap: 25px;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    #art-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns desktop */
+    }
+}
+
+/* Card Styling */
+.auction-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.auction-card img {
+    width: 100%;
+    height: 250px;
+    /* Fixed height for uniformity */
+    object-fit: cover;
+    /* Crops image to fit without stretching */
+}
+
+/* Button & Input Styling */
+.bid-controls {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bid-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Courier Prime', monospace;
+}
+
+.place-bid-btn {
+    background-color: #2d5a27;
+    /* Your green */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.place-bid-btn:hover {
+    background-color: #1e3d1a;
+    transform: scale(1.02);
+}

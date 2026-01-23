@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOC Admin | Manage Art</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <main class="admin-container">
+        <h1 class="courier-prime-bold">Art Inventory Manager</h1>
+
+        <section class="admin-card" id="admin-gate">
+            <h3>Admin Login</h3>
+            <input type="password" id="admin-pass" placeholder="Enter Secret Password">
+            <button onclick="checkPass()" class="save-btn">Enter Dashboard</button>
+        </section>
+
+        <div id="admin-content" style="display: none;">
+            <section class="admin-card">
+                <h3>Upload New Listing</h3>
+                <form id="add-art-form">
+                    <input type="text" id="art-title" placeholder="Artwork Title" required>
+
+                    <label for="art-image-url">Image Link:</label>
+                    <input type="text" id="art-image-url" placeholder="Paste image URL (Direct link ending in .jpg/png)"
+                        required>
+
+                    <input type="number" id="art-buy-price" placeholder="Buy Now Price (Leave blank for Auction Only)">
+                    <input type="number" id="art-start-bid" placeholder="Starting Bid (₹)" required>
+
+                    <label for="auction-duration" style="display: block; margin-top: 10px;">Auction Duration
+                        (Hours):</label>
+                    <input type="number" id="auction-duration" value="24" required>
+
+                    <div id="upload-status" style="margin: 10px 0; font-weight: bold;"></div>
+                    <button type="submit" id="submit-btn" class="save-btn">List Artwork</button>
+                </form>
+            </section>
+
+            <section class="admin-card">
+                <h3>Live Inventory</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Current Bid</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-list">
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+
+</html>
