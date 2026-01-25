@@ -110,3 +110,95 @@ td {
     padding: 10px;
     border-bottom: 1px solid #eee;
 }
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+}
+
+#admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+#admin-table th,
+#admin-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Status Badges */
+.status-active {
+    color: #2d5a27;
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.status-sold {
+    color: #d32f2f;
+    font-weight: bold;
+    background: #ffebee;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* Buttons */
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.export-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.sold-btn {
+    background-color: #2d5a27;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background-color: #b71c1c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Utility */
+.label-block {
+    display: block;
+    margin-top: 10px;
+}
+
+.status-msg {
+    margin: 10px 0;
+    font-weight: bold;
+    color: #2d5a27;
+}
+
+.admin-help-text {
+    font-size: 0.9rem;
+    color: #666;
+}

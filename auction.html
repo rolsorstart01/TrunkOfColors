@@ -15,12 +15,23 @@
 <body>
     <header>
         <nav>
-            <div class="logo">
-                <img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo">
-            </div>
+            <div class="logo"><a href="index.html"><img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo"></a></div>
+            <ul>
+                <li>
+                    <a href="https://www.instagram.com/trunkofcolors/" class="nav-inst" target="_blank">
+                        <img src="Assets/Logos/instaw.png" alt="Instagram">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/+919204069706" class="nav-whatsapp" target="_blank">
+                        <img src="Assets/Logos/whatsappw.png" alt="WhatsApp">
+                    </a>
+                </li>
+            </ul>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="auction.html" class="active">Buy Art</a></li>
+                <li><a href="csart.html">Custom Art</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -30,8 +41,10 @@
     <main class="auction-container">
         <section class="auction-header">
             <span class="wlcm-to">Curated Collection</span>
-            <h1 class="hero-h2">The Trunk of Colors</h1>
-            <p class="courier-prime-regular">Place your bid or purchase instantly via secure payment.</p>
+            <h1 class="hero-h2 courier-prime-bold">The Trunk of Colors</h1>
+            <p class="courier-prime-regular">Place your bid or purchase instantly via secure payment.
+                Click on the image to expand it.
+            </p>
         </section>
 
         <div id="art-grid" class="art-grid">
@@ -40,6 +53,18 @@
     </main>
 
     <script type="module" src="js/auction.js"></script>
+    <div id="imgModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="fullImg">
+    </div>
 </body>
+<footer>
+    <p>© 2024 Trunk Of Colors</p>
+    <div class="footer-links">
+        <a href="#" class="term-links">Privacy Policy</a>
+        <a href="#" class="term-links">Terms of Service</a>
+        <a href="contact.html" class="term-links">Contact</a>
+    </div>
+</footer>
 
 </html>

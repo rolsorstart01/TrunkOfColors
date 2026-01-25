@@ -15,46 +15,53 @@
 
         <section class="admin-card" id="admin-gate">
             <h3>Admin Login</h3>
+            <p class="admin-help-text">Enter passcode to unlock management tools.</p>
             <input type="password" id="admin-pass" placeholder="Enter Secret Password">
             <button onclick="checkPass()" class="save-btn">Enter Dashboard</button>
         </section>
 
         <div id="admin-content" style="display: none;">
+
             <section class="admin-card">
                 <h3>Upload New Listing</h3>
                 <form id="add-art-form">
                     <input type="text" id="art-title" placeholder="Artwork Title" required>
 
                     <label for="art-image-url">Image Link:</label>
-                    <input type="text" id="art-image-url" placeholder="Paste image URL (Direct link ending in .jpg/png)"
-                        required>
+                    <input type="text" id="art-image-url" placeholder="Paste image URL (ending in .jpg/png)" required>
 
                     <input type="number" id="art-buy-price" placeholder="Buy Now Price (Leave blank for Auction Only)">
                     <input type="number" id="art-start-bid" placeholder="Starting Bid (₹)" required>
 
-                    <label for="auction-duration" style="display: block; margin-top: 10px;">Auction Duration
-                        (Hours):</label>
+                    <label for="auction-duration" class="label-block">Auction Duration (Hours):</label>
                     <input type="number" id="auction-duration" value="24" required>
 
-                    <div id="upload-status" style="margin: 10px 0; font-weight: bold;"></div>
+                    <div id="upload-status" class="status-msg"></div>
                     <button type="submit" id="submit-btn" class="save-btn">List Artwork</button>
                 </form>
             </section>
 
             <section class="admin-card">
-                <h3>Live Inventory</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Current Bid</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inventory-list">
-                    </tbody>
-                </table>
+                <div class="header-flex">
+                    <h3>Live Inventory</h3>
+                    <button onclick="exportToCSV()" class="export-btn">📥 Export to CSV</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Price/Bid</th>
+                                <th>Highest Bidder Info</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-list">
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </div>
     </main>

@@ -1,0 +1,232 @@
+/* --- Custom Art Section (csart.css) --- */
+
+.big-intro {
+    min-height: calc(100vh - 80px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 5%;
+    background-color: var(--sage-green);
+}
+
+.big-intro-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* --- Left Side: Text Card --- */
+.big-intro-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3.5rem;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.big-intro-card h1 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 3.5rem;
+    color: var(--base);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+}
+
+.big-intro-card p {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+}
+
+/* CTA Button Styling */
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: var(--base);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    background-color: var(--dark-gray);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Right Side: Image Gallery --- */
+.big-intro-image {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.big-intro-image h3 {
+    grid-column: span 2;
+    font-family: 'Allison', cursive;
+    font-size: 4rem;
+    color: var(--base);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.big-intro-image a {
+    display: block;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Make the first image span two rows to create a masonry look */
+.big-intro-image a:first-of-type {
+    grid-row: span 2;
+}
+
+.big-intro-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.big-intro-image a:hover {
+    transform: scale(1.03) rotate(1deg);
+    z-index: 2;
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 1024px) {
+    .big-intro-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .big-intro-card {
+        text-align: center;
+        padding: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .big-intro {
+        padding: 2rem 5%;
+    }
+
+    .big-intro-card h1 {
+        font-size: 2.5rem;
+    }
+
+    .big-intro-card p br {
+        display: none;
+        /* Removes forced breaks on mobile */
+    }
+
+    .big-intro-image {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .big-intro-image h3 {
+        font-size: 2rem;
+    }
+}
+
+/* --- Social Links in Intro Card --- */
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: center;
+    /* Centers icons if the card is centered on mobile */
+    justify-content: flex-start;
+}
+
+.social-link a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.social-link img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    /* Keeps colored icons looking sharp */
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effects */
+.social-link a:hover {
+    background: var(--white);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-link a:hover img {
+    transform: scale(1.1);
+}
+
+/* Mobile Alignment Adjustment */
+@media (max-width: 1024px) {
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Container to hold button and icons in one line */
+.action-row {
+    display: flex;
+    align-items: center;
+    /* Vertical centering */
+    gap: 1.5rem;
+    /* Space between button and icons */
+    margin-top: 2rem;
+}
+
+/* Ensure the social-links container doesn't add its own extra layout */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0;
+    /* Removed margin-top to keep it level with the button */
+}
+
+/* Keep icons circular and clean */
+.social-link a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive: Stack them if the screen is too narrow */
+@media (max-width: 480px) {
+    .action-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}

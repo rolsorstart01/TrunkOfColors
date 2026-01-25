@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+// 1. Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBq1HMa_3JcLp2sAJgmSTrTKORyDzoSjvU",
     authDomain: "trunkofcolors-f4864.firebaseapp.com",
@@ -13,66 +14,66 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 let currentAdminKey = "";
 
-// Login Gate
+// --- 1. Handle Login ---
 window.checkPass = () => {
-    currentAdminKey = document.getElementById('admin-pass').value;
-    // UI logic to show the dashboard
-    document.getElementById('admin-gate').style.display = "none";
-    document.getElementById('admin-content').style.display = "block";
-    loadInventory();
+    const passInput = document.getElementById('admin-pass');
+    currentAdminKey = passInput.value;
+
+    if (currentAdminKey) {
+        document.getElementById('admin-gate').style.display = "none";
+        document.getElementById('admin-content').style.display = "block";
+        loadInventory();
+    } else {
+        alert("Please enter the admin password.");
+    }
 };
 
-// Add Listing (Using URL instead of File Upload)
+// --- 2. Add New Artwork ---
 document.getElementById('add-art-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = document.getElementById('submit-btn');
-    const status = document.getElementById('upload-status');
+    const statusLabel = document.getElementById('upload-status');
 
-    // Get values from the form
     const title = document.getElementById('art-title').value;
-    const imageUrl = document.getElementById('art-image-url').value; // Changed to URL input
+    const imageUrl = document.getElementById('art-image-url').value;
     const buyPrice = document.getElementById('art-buy-price').value;
     const startBid = document.getElementById('art-start-bid').value;
     const duration = document.getElementById('auction-duration').value;
 
     try {
         submitBtn.disabled = true;
-        status.innerText = "Saving to database...";
+        statusLabel.innerText = "Processing...";
 
-        // Calculate End Time (Current time + duration in hours)
+        // Calculate end time (Now + hours)
         const endTime = Date.now() + (parseInt(duration) * 60 * 60 * 1000);
 
-        // Save Data to Firestore
-        const newArt = {
-            title: title,
+        await addDoc(collection(db, "artworks"), {
+            title,
             image: imageUrl,
-            buyPrice: buyPrice ? parseInt(buyPrice) : null, // Optional Buy Now
+            buyPrice: buyPrice ? parseInt(buyPrice) : null,
             currentBid: parseInt(startBid),
-            endTime: endTime,
+            endTime,
             status: "active",
             topBidder: "No bids yet",
-            adminKey: currentAdminKey, // Security rule validation
+            bidderPhone: "N/A",
+            adminKey: currentAdminKey, // Matches Security Rule: allow create
             timestamp: new Date()
-        };
+        });
 
-        await addDoc(collection(db, "artworks"), newArt);
-
-        status.innerText = "Listing Live!";
-        status.style.color = "green";
+        statusLabel.innerText = "Listing Live!";
         e.target.reset();
     } catch (error) {
-        status.innerText = "Error: Permission Denied. Check password.";
-        status.style.color = "red";
         console.error(error);
+        statusLabel.innerText = "Error: Check Password/Connection";
+        alert("Upload failed. Verify your passcode matches the database secret.");
     } finally {
         submitBtn.disabled = false;
     }
 });
 
-// Load and Manage Inventory in Real-time
+// --- 3. Load Inventory (Real-Time) ---
 function loadInventory() {
     onSnapshot(collection(db, "artworks"), (snapshot) => {
         const list = document.getElementById('inventory-list');
@@ -83,13 +84,22 @@ function loadInventory() {
             const id = docSnap.id;
             const row = document.createElement('tr');
 
+            // Using class names that match your admin.css
             row.innerHTML = `
-                <td>${item.title}</td>
-                <td class="status-${item.status}">${item.status.toUpperCase()}</td>
+                <td><strong>${item.title}</strong></td>
+                <td><span class="status-${item.status}">${item.status.toUpperCase()}</span></td>
                 <td>₹${item.currentBid}</td>
                 <td>
-                    <button class="sold-btn" onclick="markSold('${id}')">Mark Sold</button>
-                    <button class="del-btn" onclick="deleteArt('${id}')">Delete</button>
+                    <div class="bidder-details">
+                        <strong>User:</strong> ${item.topBidder}<br>
+                        <strong>Phone:</strong> ${item.bidderPhone || 'N/A'}
+                    </div>
+                </td>
+                <td>
+                    <div class="action-btns">
+                        ${item.status === 'active' ? `<button class="sold-btn" onclick="markSold('${id}')">Mark Sold</button>` : ''}
+                        <button class="delete-btn" onclick="deleteArt('${id}')">Delete</button>
+                    </div>
                 </td>
             `;
             list.appendChild(row);
@@ -97,48 +107,72 @@ function loadInventory() {
     });
 }
 
-// Global function to mark as SOLD
+// --- 4. Mark Item as Sold ---
 window.markSold = async (id) => {
-    if (confirm("Mark this as SOLD? It will be removed from the gallery public view.")) {
+    if (confirm("Mark this artwork as SOLD? This stops all bidding.")) {
         try {
-            const artRef = doc(db, "artworks", id);
-            await updateDoc(artRef, {
+            const docRef = doc(db, "artworks", id);
+            // adminKey triggers 'Option A' in your Security Rules
+            await updateDoc(docRef, {
                 status: "sold",
                 adminKey: currentAdminKey
             });
+            alert("Updated to SOLD.");
         } catch (error) {
-            alert("Error: You might have the wrong password.");
+            console.error(error);
+            alert("Update failed. Password might be incorrect.");
         }
     }
 };
 
-// Global function to DELETE
+// --- 5. Delete Artwork ---
 window.deleteArt = async (id) => {
-    if (confirm("Permanently delete this listing?")) {
+    if (confirm("Permanently delete this artwork?")) {
         try {
-            // Note: Since delete doesn't allow sending data in the body easily,
-            // ensure your Firestore rules allow this based on the headers or simplified rules.
-            await deleteDoc(doc(db, "artworks", id));
+            const docRef = doc(db, "artworks", id);
+
+            // Prove identity first (Matches Security Rule: allow delete)
+            await updateDoc(docRef, {
+                adminKey: currentAdminKey
+            });
+
+            await deleteDoc(docRef);
+            alert("Deleted successfully.");
         } catch (error) {
-            alert("Error deleting: Check permissions.");
+            console.error("Delete error:", error);
+            alert("Delete failed. Permission denied.");
         }
     }
 };
-// Add this helper for deletion in admin.js
-window.deleteArt = async (id) => {
-    if (confirm("Are you sure you want to delete this listing permanently?")) {
-        try {
-            const artRef = doc(db, "artworks", id);
-            // In a 'no-auth' system, we usually update the doc with the key 
-            // before deleting, or use a specific delete field.
-            // For simplicity, we will just delete here. 
-            // If your rules block it, ensure the 'delete' rule is 'allow delete: if true'
-            // while you are the only one with the URL.
-            await deleteDoc(artRef);
-            alert("Deleted successfully.");
-        } catch (error) {
-            console.error(error);
-            alert("Delete failed. Check console.");
-        }
+
+// --- 6. Export to CSV (Excel) ---
+window.exportToCSV = () => {
+    const rows = document.querySelectorAll("#inventory-list tr");
+    if (rows.length === 0) {
+        alert("No data to export.");
+        return;
     }
+
+    let csvContent = "data:text/csv;charset=utf-8,Title,Status,Price,Bidder,Phone\n";
+
+    rows.forEach(row => {
+        const title = row.cells[0].innerText;
+        const status = row.cells[1].innerText;
+        const price = row.cells[2].innerText.replace("₹", "");
+
+        // Extract Name and Phone from the bidder-details div
+        const bidderText = row.cells[3].innerText;
+        const bidderName = bidderText.split('\n')[0].replace("User: ", "").trim();
+        const bidderPhone = bidderText.split('\n')[1] ? bidderText.split('\n')[1].replace("Phone: ", "").trim() : "N/A";
+
+        csvContent += `"${title}","${status}","${price}","${bidderName}","${bidderPhone}"\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `TOC_Inventory_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 };

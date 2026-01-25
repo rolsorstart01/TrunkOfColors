@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trunk Of Colors</title>
+    <title>Trunk Of Colors | Gallery</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -17,11 +20,24 @@
 
         <nav>
             <div class="logo">
-                <img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo">
+                <a href="index.html"><img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo"></a>
             </div>
+            <ul>
+                <li>
+                    <a href="https://www.instagram.com/trunkofcolors/" class="nav-inst" target="_blank">
+                        <img src="Assets/Logos/instaw.png" alt="Logo">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/+919204069706" class="nav-whatsapp" target="_blank">
+                        <img src="Assets/Logos/whatsappw.png" alt="Logo">
+                    </a>
+                </li>
+            </ul>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="auction.html">Buy Art</a></li>
+                <li><a href="csart.html">Custom Art</a></li>
                 <li><a href="gallery.html" class="active">Gallery</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -29,44 +45,122 @@
     </header>
     <section class="gallery">
         <div class="gallery-content">
-            <h1>Discover Us</h1>
+            <h1 class="toc">Discover Us</h1>
+
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <a href="gallery/water.html"><img src="Assets/Images/Images/1.png" alt="Gallery"></a>
+                    <a href="gallery/water.html">
+                        <img src="Assets/Images/Water/0F1D067D-4B52-420A-AC63-41369B0A004B.JPG" class="g-img"
+                            alt="Watercolor Painting">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Watercolors</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/acryilic.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/acryilic.html">
+                        <img src="Assets/Images/Acrylic/IMG_0866.JPG" class="g-img" alt="Acrylic Art">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Acrylics</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/ill.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/ill.html">
+                        <img src="Assets/Images/Illustrations/IMG_0109.JPG" class="g-img" alt="Illustration">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Illustrations</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/doodle.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/doodle.html">
+                        <img src="Assets/Images/Doodle/IMG_6884.JPG" class="g-img" alt="Doodle Art">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Doodles</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/mm.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/mm.html">
+                        <img src="Assets/Images/MixedMedia/21FED87F-4939-4BF2-9271-E1F14D184D79.JPG" class="g-img"
+                            alt="Mixed Media">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Mixed Media</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/neuro.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/neuro.html">
+                        <img src="Assets/Images/Neurographic/IMG_6151.JPG" class="g-img" alt="Neurographic Art">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Neurographic</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/oil.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/oil.html">
+                        <img src="Assets/Images/OilPastels/3E5788BD-3524-4445-B064-68DC9C02B09E.JPG" class="g-img"
+                            alt="Oil Pastels">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Oil Pastels</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/gouche.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/gouche.html">
+                        <img src="Assets/Images/Gouche/0E8FE666-DB84-4B08-AB11-784629B633D1.JPG" class="g-img"
+                            alt="Gouache Painting">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Gouache</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/impasto.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/impasto.html">
+                        <img src="Assets/Images/Impasto/IMG_7287.JPG" class="g-img" alt="Impasto Art">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Impasto</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/graffiti.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/graffiti.html">
+                        <img src="Assets/Images/Graffiti/IMG_7710.JPG" class="g-img" alt="Graffiti Art">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Graffiti</span>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="gallery-item">
-                    <a href="gallery/medi.html"><img src="Assets/Images/Gallery/1.png" alt="Gallery"></a>
+                    <a href="gallery/medi.html">
+                        <img src="Assets/Images/Meditative/IMG_8888.JPG" class="g-img" alt="Meditative Art">
+                        <div class="gallery-overlay">
+                            <span class="art-type allison-regular">Meditative</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+    <footer>
+        <p>© 2024 Trunk Of Colors</p>
+        <div class="footer-links">
+            <a href="#" class="term-links">Privacy Policy</a>
+            <a href="#" class="term-links">Terms of Service</a>
+            <a href="contact.html" class="term-links">Contact</a>
+        </div>
+    </footer>
 </body>
 
 </html>
