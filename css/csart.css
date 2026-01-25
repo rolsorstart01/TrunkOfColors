@@ -230,3 +230,25 @@
         gap: 1rem;
     }
 }
+
+@media (max-width: 1024px) {
+    .big-intro-content {
+        grid-template-columns: 1fr;
+        /* Stack text and image */
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .big-intro-card {
+        padding: 2rem;
+    }
+
+    .big-intro-card h1 {
+        font-size: 2.5rem;
+    }
+
+    .big-intro-image {
+        grid-template-columns: 1fr;
+        /* Single column for images */
+    }
+}

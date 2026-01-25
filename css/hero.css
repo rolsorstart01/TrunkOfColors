@@ -141,7 +141,26 @@
     font-size: 3rem;
     margin-bottom: 0;
 }
-.hero-lg{
+
+.hero-lg {
     width: 150px;
     height: auto;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 90vh;
+        padding: 40px 20px;
+    }
+
+    .hero-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .hero-cta {
+        width: 100%;
+        /* Stack buttons on mobile */
+        margin: 10px 0;
+    }
 }

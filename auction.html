@@ -15,8 +15,19 @@
 <body>
     <header>
         <nav>
-            <div class="logo"><a href="index.html"><img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo"></a></div>
-            <ul>
+            <div class="logo">
+                <a href="index.html"><img src="Assets/Images/Logo/TOCL Logo-1.png" alt="Logo"></a>
+            </div>
+
+            <input type="checkbox" id="menu-toggle">
+
+            <label for="menu-toggle" class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <ul class="social-nav">
                 <li>
                     <a href="https://www.instagram.com/trunkofcolors/" class="nav-inst" target="_blank">
                         <img src="Assets/Logos/instaw.png" alt="Instagram">
@@ -28,7 +39,8 @@
                     </a>
                 </li>
             </ul>
-            <ul>
+
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="auction.html" class="active">Buy Art</a></li>
                 <li><a href="csart.html">Custom Art</a></li>
