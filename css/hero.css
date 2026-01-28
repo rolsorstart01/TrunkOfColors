@@ -8,23 +8,19 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-
-    /* Optimized Earthy Mineral Gradient */
     background: #b8bea0;
     padding: 0 20px;
 }
 
-/* Optional Overlay for Texture Depth */
 .hero::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
+    /* Shorthand for top/left/right/bottom: 0 */
     background-image: url("https://www.transparenttextures.com/patterns/canvas-orange.png");
-    opacity: 0.4;
+    opacity: 0.3;
     pointer-events: none;
+    z-index: 1;
 }
 
 /* --- Hero Content --- */
@@ -32,46 +28,60 @@
     position: relative;
     z-index: 2;
     padding: 3rem;
+    max-width: 800px;
     border-radius: 24px;
-    /* Soft Glassmorphism Effect */
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.25);
+    /* Increased opacity for better legibility */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
+/* --- Typography & Elements --- */
+.logo-div {
+    background-color: white;
+    border-radius: 50%;
+    width: 150px;
+    /* Consistent sizing */
+    aspect-ratio: 1 / 1;
+    display: flex;
+    /* Changed from block to flex */
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+}
+
+.hero-lg {
+    width: 80%;
+    /* Logo padding within the circle */
+    height: auto;
+}
+
 .hero-content h1 {
-    /* Using a Serif font like 'Playfair Display' is highly recommended here */
-    font-family: 'Playfair Display', serif;
+    font-family: 'Courier New', Courier, monospace;
     font-size: clamp(2.5rem, 8vw, 4.5rem);
-    /* Fluid typography */
     font-weight: 600;
     color: #2D3436;
-    /* Deep Onyx/Charcoal for high-end contrast */
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     line-height: 1.1;
     letter-spacing: -0.03em;
     animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.hero-content p {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.25rem;
-    color: #4A4A4A;
-    /* Softened charcoal */
-    max-width: 550px;
-    margin: 0 auto;
-    font-weight: 400;
-    line-height: 1.7;
-    letter-spacing: 0.01em;
-    opacity: 0;
-    animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+.hero-h2 {
+    font-size: 3.5rem;
+    font-family: "Allison", cursive;
+    color: #373737;
+    margin-top: 10px;
+    /* Pull it closer to the H1 */
+    font-weight: 525;
 }
 
-/* --- CTA Button (Added for a complete Hero) --- */
+/* --- Buttons --- */
 .hero-cta {
-    margin-top: 2.5rem;
+    margin: 1.5rem 10px 0;
     display: inline-block;
     padding: 16px 36px;
     background-color: #2D3436;
@@ -82,7 +92,6 @@
     transition: all 0.4s ease;
     opacity: 0;
     animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
-    margin: 10px 10px;
 }
 
 .hero-cta:hover {
@@ -91,32 +100,41 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Entrance Animation --- */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* --- Responsive Adjustments --- */
+/* --- Responsive (Merged) --- */
 @media (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 20px;
+    }
+
     .hero-content {
-        padding: 2rem 1.5rem;
-        margin: 0 10px;
+        padding: 2.5rem 1.5rem;
     }
 
     .hero-content h1 {
         font-size: 2.75rem;
     }
 
-    .hero-content p {
-        font-size: 1.1rem;
+    .hero-cta {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .logo-div {
+        width: 120px;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -128,39 +146,61 @@
     color: #686565
 }
 
-.hero-h2 {
-    font-size: 3rem;
-    font-weight: 350;
-    color: #373737;
-    font-family: "Allison", cursive;
-    margin-top: 0;
-}
-
 .toc {
     font-family: 'Courier New', Courier, monospace;
     font-size: 3rem;
     margin-bottom: 0;
 }
 
-.hero-lg {
-    width: 150px;
+/* --- Background Video Styles --- */
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
     height: auto;
+    z-index: 0;
+    /* Behind everything */
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    /* Ensures video fills the area without stretching */
 }
 
-@media (max-width: 768px) {
-    .hero {
-        height: auto;
-        min-height: 90vh;
-        padding: 40px 20px;
-    }
+/* --- Hero Adjustments --- */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Important to clip the video edges */
+    background: #000;
+    /* Fallback color */
+}
 
-    .hero-content {
-        padding: 2rem 1.5rem;
-    }
+/* Ensure content stays on top of video */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    /* Your existing styles... */
+    background: rgba(255, 255, 255, 0.15);
+    /* Lowered opacity for better video visibility */
+    backdrop-filter: blur(8px);
+}
 
-    .hero-cta {
-        width: 100%;
-        /* Stack buttons on mobile */
-        margin: 10px 0;
-    }
+/* Optional: Dark overlay to make text pop */
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    /* Adjust 0.2 for more/less darkness */
+    z-index: 1;
 }

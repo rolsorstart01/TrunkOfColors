@@ -218,3 +218,23 @@
         height: 80px;
     }
 }
+
+/* 1. Force the section header to take up the full width of the grid */
+.grid-header {
+    grid-column: 1 / -1;
+    /* Spans from the first to the last column */
+    text-align: center;
+    padding: 60px 0 20px;
+}
+
+/* 2. Style the Allison font specifically for this inner heading */
+.grid-header h3 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--text-main);
+    margin-bottom: 0;
+}
+
+/* 3. Ensure the divider below it stays centered */
+.grid-header .divider {
+    margin: 10px auto 40px;
+}

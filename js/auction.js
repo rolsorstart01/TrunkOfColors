@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // 1. Firebase Configuration
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const artGrid = document.getElementById('art-grid');
 // Tracker to manage intervals
 const activeTimers = {};
 
-// 2. Timer Logic (Updated to handle "Sold" update when time is up)
+// 2. Timer Logic
 function runTimer(id, endTime) {
     if (activeTimers[id]) clearInterval(activeTimers[id]);
 
@@ -28,17 +28,10 @@ function runTimer(id, endTime) {
         const now = Date.now();
         const distance = endTime - now;
 
-        // If time is up
         if (distance <= 0) {
             clearInterval(activeTimers[id]);
-
-            // Remove from UI
             const card = timerDisplay?.closest('.art-card');
             if (card) card.remove();
-
-            // Note: Since only an Admin can change status per your rules, 
-            // the 'sold' update below will only work if the user is an admin.
-            // Bidders will just see the card disappear.
             return;
         }
 
@@ -57,7 +50,6 @@ function runTimer(id, endTime) {
 
 // 3. Start Application & Real-time Listener
 function startApp() {
-    // Only query active artworks
     const q = query(
         collection(db, "artworks"),
         where("status", "==", "active")
@@ -74,8 +66,6 @@ function startApp() {
         const now = Date.now();
         snapshot.forEach((docSnap) => {
             const data = docSnap.data();
-
-            // Extra safety: Only render if endTime is in the future
             if (data.endTime > now) {
                 renderCard(docSnap.id, data);
             }
@@ -120,7 +110,7 @@ function renderCard(id, item) {
 // 5. Global Click Handlers
 document.addEventListener('click', async (e) => {
 
-    // BIDDING LOGIC (Updated to match Option B of Security Rules)
+    // BIDDING LOGIC
     if (e.target.classList.contains('bid-btn')) {
         const id = e.target.getAttribute('data-id');
         const currentBid = parseInt(e.target.getAttribute('data-current'));
@@ -134,12 +124,17 @@ document.addEventListener('click', async (e) => {
         }
 
         try {
-            // We ONLY send the fields allowed by Option B of your rules.
-            // We do NOT send adminKey or status here.
-            await updateDoc(doc(db, "artworks", id), {
+            const docRef = doc(db, "artworks", id);
+            const docSnap = await getDoc(docRef);
+            const currentData = docSnap.data();
+
+            // We must include adminKey to pass the Security Rule: 
+            // request.resource.data.adminKey == resource.data.adminKey
+            await updateDoc(docRef, {
                 currentBid: amount,
                 topBidder: name,
-                bidderPhone: phone
+                bidderPhone: phone,
+                adminKey: currentData.adminKey
             });
             alert("Bid Placed successfully!");
         } catch (err) {
@@ -148,32 +143,33 @@ document.addEventListener('click', async (e) => {
         }
     }
 
-    // RAZORPAY LOGIC (Needs adminKey to update status to 'sold' per your rules)
+    // RAZORPAY LOGIC
     if (e.target.classList.contains('buy-btn')) {
         const id = e.target.getAttribute('data-id');
         const price = e.target.getAttribute('data-price');
         const title = e.target.getAttribute('data-title');
 
         const options = {
-            "key": "rzp_test_YOUR_ACTUAL_KEY",
+            "key": "rzp_test_YOUR_ACTUAL_KEY", // Replace with your key
             "amount": price * 100,
             "currency": "INR",
             "name": "Trunk Of Colors",
             "description": `Purchase: ${title}`,
             "handler": async function (response) {
                 try {
-                    // NOTE: This will fail unless you have a way to include 
-                    // the adminKey or change your rules to allow status updates 
-                    // upon successful payment.
-                    await updateDoc(doc(db, "artworks", id), {
+                    const docRef = doc(db, "artworks", id);
+                    const docSnap = await getDoc(docRef);
+                    const currentData = docSnap.data();
+
+                    await updateDoc(docRef, {
                         status: "sold",
-                        paymentId: response.razorpay_payment_id
-                        // adminKey: "YOUR_SECRET_KEY" // Required by your current rules
+                        paymentId: response.razorpay_payment_id,
+                        adminKey: currentData.adminKey // Required to satisfy rules
                     });
-                    alert("Payment Successful!");
+                    alert("Payment Successful! Item marked as SOLD.");
                 } catch (err) {
                     console.error("Status update failed:", err);
-                    alert("Payment successful, but status update failed. Contact Admin.");
+                    alert("Payment successful, but database update failed. Contact Admin.");
                 }
             },
             "theme": { "color": "#2d5a27" }
@@ -194,3 +190,42 @@ window.openFullImage = (src) => {
 };
 
 startApp();
+// --- 6. Lightbox & Modal Controls ---
+
+// Function to open the modal
+window.openFullImage = (src) => {
+    const modal = document.getElementById("imgModal");
+    const fullImg = document.getElementById("fullImg");
+    if (modal && fullImg) {
+        modal.style.display = "flex";
+        fullImg.src = src;
+        // Prevent background scrolling when image is open
+        document.body.style.overflow = "hidden";
+    }
+};
+
+// Function to close the modal
+const closeModal = () => {
+    const modal = document.getElementById("imgModal");
+    modal.style.display = "none";
+    // Re-enable scrolling
+    document.body.style.overflow = "auto";
+};
+
+// 1. Listen for click on the 'X' button
+document.querySelector('.close-modal').addEventListener('click', closeModal);
+
+// 2. Listen for clicks outside the image (on the dark background)
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById("imgModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+});
+
+// 3. Listen for the 'Escape' key
+window.addEventListener('keydown', (event) => {
+    if (event.key === "Escape") {
+        closeModal();
+    }
+});

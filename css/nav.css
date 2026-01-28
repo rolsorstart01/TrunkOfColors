@@ -94,7 +94,7 @@ nav {
 }
 
 .social-nav img {
-    height: 24px;
+    height: 30px;
     width: auto;
     object-fit: contain;
     display: block;
@@ -144,7 +144,7 @@ nav {
     }
 
     .social-nav img {
-        height: 20px;
+        height: 30px;
     }
 
     /* 2. Place Burger to the right of Icons */

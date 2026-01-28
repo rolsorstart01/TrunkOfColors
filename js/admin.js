@@ -19,9 +19,11 @@ let currentAdminKey = "";
 // --- 1. Handle Login ---
 window.checkPass = () => {
     const passInput = document.getElementById('admin-pass');
-    currentAdminKey = passInput.value;
+    // We trim and convert to String to ensure "TOCAdmin" matches perfectly
+    currentAdminKey = String(passInput.value).trim();
 
     if (currentAdminKey) {
+        console.log("Admin logged in. Key captured.");
         document.getElementById('admin-gate').style.display = "none";
         document.getElementById('admin-content').style.display = "block";
         loadInventory();
@@ -44,30 +46,32 @@ document.getElementById('add-art-form').addEventListener('submit', async (e) => 
 
     try {
         submitBtn.disabled = true;
-        statusLabel.innerText = "Processing...";
+        statusLabel.innerText = "Connecting to Vault...";
 
-        // Calculate end time (Now + hours)
+        // Calculate end time (Now + hours converted to ms)
         const endTime = Date.now() + (parseInt(duration) * 60 * 60 * 1000);
 
+        // CREATE DOCUMENT
+        // adminKey must match the 'passcode' field in /secrets/admin
         await addDoc(collection(db, "artworks"), {
-            title,
+            title: title,
             image: imageUrl,
             buyPrice: buyPrice ? parseInt(buyPrice) : null,
             currentBid: parseInt(startBid),
-            endTime,
+            endTime: endTime,
             status: "active",
             topBidder: "No bids yet",
             bidderPhone: "N/A",
-            adminKey: currentAdminKey, // Matches Security Rule: allow create
+            adminKey: currentAdminKey,
             timestamp: new Date()
         });
 
         statusLabel.innerText = "Listing Live!";
         e.target.reset();
     } catch (error) {
-        console.error(error);
-        statusLabel.innerText = "Error: Check Password/Connection";
-        alert("Upload failed. Verify your passcode matches the database secret.");
+        console.error("Firebase Error:", error.code, error.message);
+        statusLabel.innerText = "Upload Failed";
+        alert("Verification Error: Ensure your password is 'TOCAdmin' and matches the Firestore secret.");
     } finally {
         submitBtn.disabled = false;
     }
@@ -84,7 +88,6 @@ function loadInventory() {
             const id = docSnap.id;
             const row = document.createElement('tr');
 
-            // Using class names that match your admin.css
             row.innerHTML = `
                 <td><strong>${item.title}</strong></td>
                 <td><span class="status-${item.status}">${item.status.toUpperCase()}</span></td>
@@ -109,39 +112,39 @@ function loadInventory() {
 
 // --- 4. Mark Item as Sold ---
 window.markSold = async (id) => {
-    if (confirm("Mark this artwork as SOLD? This stops all bidding.")) {
-        try {
-            const docRef = doc(db, "artworks", id);
-            // adminKey triggers 'Option A' in your Security Rules
-            await updateDoc(docRef, {
-                status: "sold",
-                adminKey: currentAdminKey
-            });
-            alert("Updated to SOLD.");
-        } catch (error) {
-            console.error(error);
-            alert("Update failed. Password might be incorrect.");
-        }
+    if (!confirm("Mark this artwork as SOLD? This stops all bidding.")) return;
+
+    try {
+        const docRef = doc(db, "artworks", id);
+        await updateDoc(docRef, {
+            status: "sold",
+            adminKey: currentAdminKey // Sends password to satisfy Security Rules
+        });
+        alert("Status updated to SOLD.");
+    } catch (error) {
+        console.error("Sold Update Error:", error);
+        alert("Permission denied. Your session may have expired or the password is wrong.");
     }
 };
 
 // --- 5. Delete Artwork ---
 window.deleteArt = async (id) => {
-    if (confirm("Permanently delete this artwork?")) {
-        try {
-            const docRef = doc(db, "artworks", id);
+    if (!confirm("Permanently delete this artwork?")) return;
 
-            // Prove identity first (Matches Security Rule: allow delete)
-            await updateDoc(docRef, {
-                adminKey: currentAdminKey
-            });
+    try {
+        const docRef = doc(db, "artworks", id);
 
-            await deleteDoc(docRef);
-            alert("Deleted successfully.");
-        } catch (error) {
-            console.error("Delete error:", error);
-            alert("Delete failed. Permission denied.");
-        }
+        // We update the doc with the key before deleting so the 
+        // Security Rule "allow delete: if resource.data.adminKey == secret" passes.
+        await updateDoc(docRef, {
+            adminKey: currentAdminKey
+        });
+
+        await deleteDoc(docRef);
+        alert("Item deleted successfully.");
+    } catch (error) {
+        console.error("Delete Error:", error);
+        alert("Delete failed. Verification error.");
     }
 };
 
@@ -156,11 +159,10 @@ window.exportToCSV = () => {
     let csvContent = "data:text/csv;charset=utf-8,Title,Status,Price,Bidder,Phone\n";
 
     rows.forEach(row => {
-        const title = row.cells[0].innerText;
+        const title = row.cells[0].innerText.replace(/,/g, "");
         const status = row.cells[1].innerText;
         const price = row.cells[2].innerText.replace("₹", "");
 
-        // Extract Name and Phone from the bidder-details div
         const bidderText = row.cells[3].innerText;
         const bidderName = bidderText.split('\n')[0].replace("User: ", "").trim();
         const bidderPhone = bidderText.split('\n')[1] ? bidderText.split('\n')[1].replace("Phone: ", "").trim() : "N/A";
@@ -171,7 +173,7 @@ window.exportToCSV = () => {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `TOC_Inventory_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute("download", `TOC_Inventory_${new Date().toLocaleDateString()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
