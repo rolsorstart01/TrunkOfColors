@@ -71,7 +71,7 @@ header {
     /* This margin auto works with the parent flex to keep things perfectly spaced */
     margin: auto;
     padding: 3rem;
-    max-width: 800px;
+    max-width: 885px;
     width: 100%;
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.15);
