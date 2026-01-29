@@ -128,3 +128,58 @@
         /* Even smaller for mobile screens */
     }
 }
+
+/* Container for buttons */
+.category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+/* Base Button Style */
+.filter-btn {
+    background-color: transparent;
+    border: 1.5px solid #2D3436;
+    color: #2D3436;
+    padding: 12px 24px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    /* Sophisticated slight curve */
+    transition: all 0.3s ease;
+}
+
+/* Hover & Active States */
+.filter-btn:hover {
+    background-color: #2D3436;
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn.active {
+    background-color: #7B8E7E;
+    /* A subtle sage green for the active category */
+    border-color: #7B8E7E;
+    color: white;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .category-nav {
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        flex-grow: 1;
+        /* Makes buttons fill the width nicely on small screens */
+    }
+}

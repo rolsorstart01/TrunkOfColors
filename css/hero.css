@@ -20,25 +20,28 @@ header {
 }
 
 /* Adjust the Hero to account for the absolute header */
-.hero {
-    margin-top: 0;
-    padding-top: 80px;
-    /* Adjust this based on your nav height */
-}
-
+/* --- Hero Section --- */
 .hero {
     position: relative;
-    height: 100vh;
+    /* Use min-height so content doesn't get cut off on small screens */
+    min-height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
+    /* Keeps the card vertically centered within the padding */
     justify-content: center;
     text-align: center;
     overflow: hidden;
     background: #000;
-    padding: 0 20px;
+
+    /* 100px top for the header, 60px bottom for breathing room */
+    padding: 100px 20px 60px;
+
+    /* Essential: ensures padding stays INSIDE the 100vh */
+    box-sizing: border-box;
 }
 
+/* Texture Overlay */
 .hero::before {
     content: "";
     position: absolute;
@@ -49,7 +52,7 @@ header {
     z-index: 1;
 }
 
-/* Dark overlay for text legibility */
+/* Dark Tint Overlay */
 .hero::after {
     content: "";
     position: absolute;
@@ -61,18 +64,22 @@ header {
     z-index: 1;
 }
 
-/* --- Hero Content --- */
+/* --- Hero Content (The Glass Card) --- */
 .hero-content {
     position: relative;
     z-index: 2;
+    /* This margin auto works with the parent flex to keep things perfectly spaced */
+    margin: auto;
     padding: 3rem;
     max-width: 800px;
+    width: 100%;
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
 
 /* --- Typography & Elements --- */
@@ -97,7 +104,7 @@ header {
     font-family: 'Courier New', Courier, monospace;
     font-size: clamp(2.5rem, 8vw, 4.5rem);
     font-weight: 600;
-    color: #2D3436;
+    color: #ffffff;
     margin-bottom: 1rem;
     line-height: 1.1;
     letter-spacing: -0.03em;
@@ -109,7 +116,7 @@ header {
     font-weight: 150;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #686565;
+    color: #ffffff;
 }
 
 .toc {
@@ -121,7 +128,7 @@ header {
 .hero-h2 {
     font-size: 3.5rem;
     font-family: "Allison", cursive;
-    color: #373737;
+    color: #ffffff;
     margin-top: 10px;
     font-weight: 525;
 }
@@ -148,14 +155,14 @@ header {
 }
 
 /* --- Background Video --- */
-.hero-video {
+.hero-img {
     position: absolute;
     top: 50%;
     left: 50%;
     min-width: 100%;
     min-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     z-index: 0;
     transform: translate(-50%, -50%);
     object-fit: cover;
